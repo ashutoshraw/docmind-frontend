@@ -4,8 +4,16 @@ import { FileText, Loader2, UploadCloud, X } from 'lucide-react';
 import { uploadFile, uploadText } from '../api/documents';
 import getErrorMessage from '../utils/getErrorMessage';
 
-const MAX_MB = 5; // keep in sync with your multer limit
+const MAX_MB = 10; // keep in sync with your multer limit
 const ALLOWED = ['pdf', 'txt', 'md']; // keep in sync with your multer fileFilter
+const MAX_TITLE = 100; // keep in sync with the backend
+
+// If the title is left blank, name the document after its first line
+const autoTitle = (text) => {
+  const firstLine = text.trim().split('\n')[0].trim();
+  if (!firstLine) return 'Untitled document';
+  return firstLine.length > 60 ? `${firstLine.slice(0, 60)}...` : firstLine;
+};
 
 export default function UploadForm({ onUploaded }) {
   const [mode, setMode] = useState('file');
@@ -48,14 +56,12 @@ export default function UploadForm({ onUploaded }) {
     setError('');
 
     if (mode === 'file' && !file) return setError('Choose a file first.');
-    if (mode === 'text' && (!title.trim() || !text.trim())) {
-      return setError('Both title and text are required.');
-    }
+    if (mode === 'text' && !text.trim()) return setError('Paste some text first.');
 
     setSubmitting(true);
     try {
       if (mode === 'file') await uploadFile(file);
-      else await uploadText(title.trim(), text.trim());
+      else await uploadText(title.trim() || autoTitle(text), text.trim());
 
       clearFile();
       setTitle('');
@@ -138,7 +144,8 @@ export default function UploadForm({ onUploaded }) {
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="Title"
+            placeholder="Title (optional)"
+            maxLength={MAX_TITLE}
             className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           <textarea
