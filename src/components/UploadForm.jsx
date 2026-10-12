@@ -4,7 +4,7 @@ import { FileText, Loader2, UploadCloud, X } from 'lucide-react';
 import { uploadFile, uploadText } from '../api/documents';
 import getErrorMessage from '../utils/getErrorMessage';
 
-const MAX_MB = 10; // keep in sync with your multer limit
+const MAX_MB = 5; // keep in sync with your multer limit
 const ALLOWED = ['pdf', 'txt', 'md']; // keep in sync with your multer fileFilter
 const MAX_TITLE = 100; // keep in sync with the backend
 
