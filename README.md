@@ -14,7 +14,7 @@ Upload a document, then ask it questions in plain English. DocMind answers **onl
 ## Features
 
 - **Retrieval-Augmented Generation (RAG):** questions are answered from the uploaded document, and the model is instructed to say so when the answer is not in it, instead of guessing.
-- **PDF, text or pasted content:** upload a file or paste text, with an optional title (auto-generated from the first line when left blank).
+- **PDF, text or pasted content:** upload a file (up to 10 MB) or paste text, with an optional title (auto-generated from the first line when left blank).
 - **Live processing status:** documents move from `processing` to `ready` (or `failed`) in the background, and the dashboard updates itself without a refresh.
 - **Source citations:** every answer can show which document chunks it was based on, with similarity scores for specific questions.
 - **Overview questions that actually work:** "summarize this" and "key points" are routed differently from specific questions (see *How it works*).
@@ -127,7 +127,6 @@ src/
 - No password reset flow.
 - Answers arrive all at once; streaming the response would make chat feel faster.
 - Free-tier hosting means occasional cold starts.
-
 ## Author
 
 Built by Ashutosh Singh ([@ashutoshraw](https://github.com/ashutoshraw)).
