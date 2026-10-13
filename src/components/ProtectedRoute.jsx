@@ -18,6 +18,6 @@ export function GuestRoute() {
   const location = useLocation();
 
   if (loading) return <FullPageLoader />;
-  if (user) return <Navigate to={location.state?.from?.pathname || '/'} replace />;
+   if (user && !user.isGuest) return <Navigate to={location.state?.from?.pathname || '/'} replace />;
   return <Outlet />;
 }

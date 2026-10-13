@@ -4,7 +4,16 @@ import { ProtectedRoute, GuestRoute } from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
+import Landing from './pages/Landing';
+import useAuth from './hooks/useAuth';
+import FullPageLoader from './components/FullPageLoader';
 import Chat from './pages/Chat';
+// "/" shows the dashboard to logged-in users and the landing page to everyone else.
+function Home() {
+  const { user, loading } = useAuth();
+  if (loading) return <FullPageLoader />;
+  return user ? <Dashboard /> : <Landing />;
+}
 
 export default function App() {
   return (
@@ -16,13 +25,13 @@ export default function App() {
         }}
       />
       <Routes>
+                <Route path="/" element={<Home />} />
         <Route element={<GuestRoute />}>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Route>
 
         <Route element={<ProtectedRoute />}>
-          <Route path="/" element={<Dashboard />} />
           <Route path="/documents/:id" element={<Chat />} />
         </Route>
       </Routes>

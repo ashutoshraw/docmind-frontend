@@ -4,9 +4,11 @@ import useAuth from '../hooks/useAuth';
 import AuthCard from '../components/AuthCard';
 import FormInput from '../components/FormInput';
 import getErrorMessage from '../utils/getErrorMessage';
+import toast from 'react-hot-toast';
 
 export default function Signup() {
-  const { signup } = useAuth();
+   const { user, signup, upgradeGuest } = useAuth();
+  const isGuest = Boolean(user?.isGuest);
   const navigate = useNavigate();
 
   const [form, setForm] = useState({ name: '', email: '', password: '' });
@@ -35,7 +37,12 @@ export default function Signup() {
 
     setSubmitting(true);
     try {
-      await signup(form.name.trim(), form.email.trim(), form.password);
+          if (isGuest) {
+        await upgradeGuest(form.name.trim(), form.email.trim(), form.password);
+        toast.success('Account created. Your documents are saved.');
+      } else {
+        await signup(form.name.trim(), form.email.trim(), form.password);
+      }
       navigate('/', { replace: true });
     } catch (err) {
       setServerError(getErrorMessage(err));
@@ -46,8 +53,12 @@ export default function Signup() {
 
   return (
     <AuthCard
-      title="Create your account"
-      subtitle="Upload documents and ask them questions"
+         title="Create your account"
+      subtitle={
+        isGuest
+          ? 'Sign up and keep the documents from your demo'
+          : 'Upload documents and ask them questions'
+      }
       footer={
         <>
           Already have an account?{' '}

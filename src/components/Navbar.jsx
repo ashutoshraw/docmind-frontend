@@ -17,6 +17,14 @@ export default function Navbar() {
               {initial}
             </span>
             <span className="hidden max-w-40 truncate text-slate-300 sm:inline">{user?.name}</span>
+                        {user?.isGuest && (
+              <Link
+                to="/signup"
+                className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-indigo-500"
+              >
+                Sign up to keep your documents
+              </Link>
+            )}
           </div>
           <button
             onClick={logout}

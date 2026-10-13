@@ -49,6 +49,20 @@ export function AuthProvider({ children }) {
     setUser(data.user);
   }, []);
 
+    // "Try it now": creates a temporary guest account on the backend.
+  const loginAsGuest = useCallback(async () => {
+    const { data } = await api.post('/auth/guest');
+    setAccessToken(data.accessToken);
+    setUser(data.user);
+  }, []);
+
+  // Turns the current guest into a real account; documents stay attached.
+  const upgradeGuest = useCallback(async (name, email, password) => {
+    const { data } = await api.post('/auth/upgrade', { name, email, password });
+    setAccessToken(data.accessToken);
+    setUser(data.user);
+  }, []);
+
   const logout = useCallback(async () => {
     try {
       await api.post('/auth/logout');
@@ -59,7 +73,9 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, signup, logout }}>
+        <AuthContext.Provider
+      value={{ user, loading, login, signup, loginAsGuest, upgradeGuest, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
