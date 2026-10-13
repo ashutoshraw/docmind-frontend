@@ -111,7 +111,7 @@ export default function Landing() {
         >
           {starting ? 'Setting up your demo...' : 'Try it now'}
         </button>
-        <p className="mt-3 text-sm text-slate-500">
+        <p className="mt-3 text-sm text-slate-400">
           No sign-up needed. Demo data is deleted after 24 hours.
         </p>
       </main>
@@ -169,13 +169,13 @@ export default function Landing() {
               key={name}
               className="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-900/50 px-3 py-1.5 text-sm text-slate-300"
             >
-              <Icon className="h-4 w-4" style={{ color }} />
+              <Icon className="h-4 w-4" style={{ color }} aria-hidden="true" />
               {name}
             </span>
           ))}
         </div>
 
-        <p className="mt-6 text-sm text-slate-500">Built by Ashutosh Singh.</p>
+        <p className="mt-6 text-sm text-slate-400">Built by Ashutosh Singh.</p>
       </section>
             <section id="contact" className="mx-auto max-w-3xl scroll-mt-20 px-4 py-16 text-center">
         <h2 className="text-3xl font-bold text-white">Contact</h2>
@@ -190,7 +190,7 @@ export default function Landing() {
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-lg border border-slate-700 px-4 py-2 text-sm text-slate-200 hover:bg-slate-800"
           >
-            <FaGithub className="h-4 w-4" /> GitHub
+            <FaGithub className="h-4 w-4" aria-hidden="true"/> GitHub
           </a>
           <a
             href={LINKEDIN_URL}
@@ -198,13 +198,13 @@ export default function Landing() {
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-lg border border-slate-700 px-4 py-2 text-sm text-slate-200 hover:bg-slate-800"
           >
-            <FaLinkedin className="h-4 w-4 text-sky-400" /> LinkedIn
+            <FaLinkedin className="h-4 w-4 text-sky-400" aria-hidden="true"/> LinkedIn
           </a>
           <a
             href={`mailto:${EMAIL}`}
             className="inline-flex items-center gap-2 rounded-lg border border-slate-700 px-4 py-2 text-sm text-slate-200 hover:bg-slate-800"
           >
-            <Mail className="h-4 w-4 text-indigo-400" /> Email
+            <Mail className="h-4 w-4 text-indigo-400" aria-hidden="true"/> Email
           </a>
         </div>
       </section>
