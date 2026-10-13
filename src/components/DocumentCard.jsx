@@ -37,11 +37,19 @@ export default function DocumentCard({ doc, onDeleted }) {
           <p className="truncate font-medium text-white">{doc.title}</p>
           <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-400">
             <StatusBadge status={doc.status} />
+                        {doc.status === 'processing' && doc.chunksTotal > 0 && (
+              <span>
+                Embedding {doc.chunksDone} of {doc.chunksTotal} chunks
+              </span>
+            )}
             {doc.charCount != null && <span>{doc.charCount.toLocaleString()} chars</span>}
             {doc.createdAt && <span>{timeAgo(doc.createdAt)}</span>}
           </div>
           {doc.status === 'failed' && (
             <p className="mt-1 text-xs text-red-300">Processing failed. Delete it and try uploading again.</p>
+          )}
+                    {doc.status === 'processing' && (
+            <p className="mt-1 text-xs text-slate-500">Large documents can take a few minutes.</p>
           )}
         </div>
       </div>
