@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { Analytics } from '@vercel/analytics/react';
 import { ProtectedRoute, GuestRoute } from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/documents/:id" element={<Chat />} />
         </Route>
       </Routes>
+      <Analytics />
     </>
   );
 }
